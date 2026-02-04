@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1><i class="fas fa-tasks"></i> Task Manager</h1>
+    </header>
+
+    <div class="main-content">
+        <!-- Форма создания задачи -->
+        <section class="create-task">
+            <h2><i class="fas fa-plus-circle"></i> Новая задача</h2>
+            <div class="form-container">
+                <input type="text" id="taskTitle" placeholder="Название задачи" maxlength="100">
+                <textarea id="taskDescription" placeholder="Описание задачи (необязательно)" maxlength="1000"></textarea>
+                <div class="form-actions">
+                    <button onclick="createTask()" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Создать задачу
+                    </button>
+                    <button onclick="clearForm()" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i> Очистить
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Фильтры и управление -->
+        <section class="controls">
+            <div class="filters">
+                <button onclick="loadAllTasks()" class="btn filter-btn active">
+                    <i class="fas fa-list"></i> Все задачи
+                </button>
+                <button onclick="filterByStatus('ACTIVE')" class="btn filter-btn">
+                    <i class="fas fa-spinner"></i> Активные
+                </button>
+                <button onclick="filterByStatus('COMPLETED')" class="btn filter-btn">
+                    <i class="fas fa-check-circle"></i> Завершенные
+                </button>
+            </div>
+            <div class="actions">
+                <button onclick="deleteAllTasks()" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Удалить все
+                </button>
+            </div>
+        </section>
+
+        <!-- Список задач -->
+        <section class="tasks-list">
+            <h2><i class="fas fa-clipboard-list"></i> Список задач</h2>
+            <div id="tasksContainer" class="tasks-container">
+                <!-- Задачи будут здесь -->
+                <div class="loading">Загрузка задач...</div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Task Manager API &copy; 2024</p>
+        <p class="api-status">
+                <span id="apiStatus" class="status-offline">
+                    <i class="fas fa-circle"></i> API недоступно
+                </span>
+        </p>
+    </footer>
+</div>
+
+<!-- Модальное окно для редактирования -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2><i class="fas fa-edit"></i> Редактировать задачу</h2>
+        <input type="hidden" id="editTaskId">
+        <input type="text" id="editTaskTitle" placeholder="Название задачи">
+        <textarea id="editTaskDescription" placeholder="Описание задачи"></textarea>
+        <select id="editTaskStatus">
+            <option value="ACTIVE">Активная</option>
+            <option value="COMPLETED">Завершенная</option>
+        </select>
+        <div class="modal-actions">
+            <button onclick="updateTask()" class="btn btn-primary">
+                <i class="fas fa-save"></i> Сохранить
+            </button>
+            <button onclick="closeEditModal()" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Отмена
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
